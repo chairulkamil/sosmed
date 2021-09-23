@@ -15,7 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $post = Post::all();
+        $post = Post::with('user')->get();
         return view('post.index', compact('post'));
     }
 
@@ -37,12 +37,16 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'status' => 'required',
-            'image' => 'required',
-            'caption' => 'required',
-            'quotes' => 'required',
-        ]);
+        // $request->validate([
+        //     'status' => 'required',
+        //     'image' => 'required',
+        //     'caption' => 'required',
+        //     'quotes' => 'required',
+        // ]);
+        // dd($request->all());
+        if(!$request->status && !$request->caption && !$request->image && !$request->quotes){
+            return redirect('/post');
+        }else{
         Auth::user();
         $post =  new Post();
         $post->user_id = Auth::user()->id;
@@ -67,6 +71,7 @@ class PostController extends Controller
                 $post->image = $folder."/".$file;
                 $post->save();
             }
+        }
         }
         // dd($data);
         return redirect('/post');
@@ -107,7 +112,7 @@ class PostController extends Controller
         $post = Post::find($post->id);
         // $post->user_id = Auth::user()->id;
         $post->status = $request->get('status');
-        $post->image = $request->get('image');
+        // $post->image = $request->get('image');
         $post->caption = $request->get('caption');
         $post->quotes = $request->get('quotes');
         $post->save();

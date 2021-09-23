@@ -15,8 +15,8 @@
             </div>
             <div class="form-group">
                 <label for="image">Foto</label><br>
-                <img src="{{ URL($post->image) }}" height="100" width="150">
-                <input type="file" name="image" {{ $post->image }}>
+                <img src="{{ URL($post->image) }}" height="100" width="150"><br>
+                <input type="file" name="image" value="{{ $post->image }}" >
                 @error('image')
                     <div class="alert alert-danger">
                         {{ $message }}
