@@ -116,7 +116,7 @@
                               </ul>
                               <ul>
                                   {{-- <li><a href="#"><i class="flaticon-settings"></i>Setting</a></li> --}}
-                                  <li><a href="signup.html"><i class="flaticon-unlock"></i>Sing out</a></li>
+                                  <li><a href="logout"><i class="flaticon-unlock"></i>Sign out</a></li>
                               </ul>
                           </div>
                       </div>
@@ -379,7 +379,55 @@
     <!-- header area end -->
 
     <main>
-      @yield('content')
+
+      <div class="main-wrapper pt-80">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-3 order-2 order-lg-1">
+              {{-- leftbar --}}
+              @include('layout.leftbar') 
+            </div>
+    
+            <div class="col-lg-6 order-1 order-lg-2">
+              <!-- share box start -->
+              <div class="card card-small">
+                <div class="share-box-inner">
+                  <!-- profile picture end -->
+                  <div class="profile-thumb">
+                    <a href="#">
+                      <figure class="profile-thumb-middle">
+                        <img
+                          src="{{asset('assets/images/profile/profile-small-37.jpg')}}"
+                          alt="profile picture"
+                        />
+                      </figure>
+                    </a>
+                  </div>
+                  <!-- profile picture end -->
+    
+                  
+    
+                  {{-- modal --}}
+                  @include('layout.modalPost')
+                  
+              </div>
+              <!-- share box end -->
+              @yield('content')
+              
+              <!-- post status start -->
+              
+              <!-- post status end -->
+            </div>
+    
+            @include('layout.rightbar')
+    
+    
+          </div>
+        </div>
+      </div>
+    </div>
+
+      
     </main>
 
     <!-- Scroll to top start -->

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use Auth;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class PostController extends Controller
 {
@@ -15,8 +16,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        $post = Post::with('user')->get();
-        return view('post.index', compact('post'));
+        
+        $data = Post::all();
+        
+        return view('post.index', compact('data'));
     }
 
     /**
@@ -37,13 +40,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'status' => 'required',
-        //     'image' => 'required',
-        //     'caption' => 'required',
-        //     'quotes' => 'required',
-        // ]);
-        // dd($request->all());
+        
         if(!$request->status && !$request->caption && !$request->image && !$request->quotes){
             return redirect('/post');
         }else{
