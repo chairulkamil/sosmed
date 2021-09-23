@@ -55,7 +55,7 @@
               <div class="header-top-navigation">
                 <nav>
                   <ul>
-                    <li class="active"><a href="index.html">home</a></li>
+                    <li class="active"><a href="/post">home</a></li>
                   </ul>
                 </nav>
               </div>
@@ -100,7 +100,7 @@
                   <div class="profile-thumb-small">
                       <a href="javascript:void(0)" class="profile-triger">
                           <figure>
-                              <img src="{{asset('assets/images/profile/profile-small-1.jpg')}}" alt="profile picture">
+                              <img src="{{ Auth::user()->profiles->foto }}" alt="profile picture">
                           </figure>
                       </a>
                       <div class="profile-dropdown">
@@ -110,7 +110,7 @@
                           </div>
                           <div class="profile-body">
                               <ul>
-                                  <li><a href="profile.html"><i class="flaticon-user"></i>Profile</a></li>
+                                  <li><a href="/profile/{{ Auth::user()->id }}"><i class="flaticon-user"></i>Profile</a></li>
                                   <li><a href="#"><i class="flaticon-message"></i>Inbox</a></li>
                                   <li><a href="#"><i class="flaticon-document"></i>Activity</a></li>
                               </ul>
@@ -334,7 +334,7 @@
               <a href="javascript:void(0)" class="profile-triger">
                 <figure class="profile-thumb-middle">
                   <img
-                    src="{{asset('images/profile/profile-small-1.jpg')}}"
+                    src="{{asset('assets/images/profile/profile-small-1.jpg')}}"
                     alt="profile picture"
                   />
                 </figure>

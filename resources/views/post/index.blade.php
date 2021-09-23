@@ -46,26 +46,25 @@
             <div class="card card-profile widget-item p-0">
               <div class="profile-banner">
                 <figure class="profile-banner-small">
-                  <a href="profile.html">
+                  <a href="/profile/{{Auth::user()->profiles->id}}">
                     <img
                       src="{{asset('assets/images/banner/banner-small.jpg')}}"
                       alt=""
                     />
                   </a>
-                  <a href="profile.html" class="profile-thumb-2">
+                  <a href="/profile/{{Auth::user()->profiles->id}}" class="profile-thumb-2">
                     <img
-                      src="{{asset('assets/images/profile/profile-midle-1.jpg')}}"
+                      src="{{Auth::user()->profiles->foto}}"
                       alt=""
                     />
                   </a>
                 </figure>
                 <div class="profile-desc text-center">
                   <h6 class="author">
-                    <a href="profile.html">Dimbel Lebmid</a>
+                    <a href="/profile/{{Auth::user()->profiles->id}}"></a>
                   </h6>
                   <p>
-                    Any one can join with but Social network us if you want
-                    Any one can join with us if you want
+                    {{ Auth::user()->profiles->bio }}
                   </p>
                 </div>
               </div>
@@ -225,8 +224,9 @@
                 <a href="#">
                   <figure class="profile-thumb-middle">
                     <img
-                      src="{{asset('assets/images/profile/profile-small-37.jpg')}}"
-                      alt="profile picture"
+                    
+                    src="{{ Auth::user()->profiles->foto }}"
+                    alt="profile picture"
                     />
                   </figure>
                 </a>
@@ -355,7 +355,7 @@
                 <a href="#">
                   <figure class="profile-thumb-middle">
                     <img
-                      src="{{asset('assets/images/profile/profile-small-1.jpg')}}"
+                      src="{{$data->user->profiles->foto}}"
                       alt="profile picture"
                     />
                   </figure>
