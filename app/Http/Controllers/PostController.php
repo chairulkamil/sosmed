@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\User;
 use Auth;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
 
@@ -16,8 +17,8 @@ class PostController extends Controller
      */
     public function index()
     {
-
-        $data = Post::all();
+        $data = Post::with('user')->orderBy('id', 'desc')->get();
+        
         return view('post.index', compact('data'));
 
         

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Final Projects - ASMODEUS</title>
+    <title>@yield('title')</title>
     <meta name="robots" content="noindex, follow" />
     <meta name="description" content="" />
     <meta
@@ -402,7 +402,7 @@
                 <div class="share-box-inner">
                   <!-- profile picture end -->
                   <div class="profile-thumb">
-                    <a href="#">
+                    <a href="/profile">
                       <figure class="profile-thumb-middle">
                         <img
                           src="{{ Auth::user()->profiles->foto }}"

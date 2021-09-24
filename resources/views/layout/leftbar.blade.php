@@ -5,7 +5,7 @@
         <figure class="profile-banner-small">
           <a href="profile.html">
             <img
-              src="{{asset('assets/images/banner/banner-small.jpg')}}"
+              src="{{ Auth::user()->profiles->cover }}"
               alt=""
             />
           </a>

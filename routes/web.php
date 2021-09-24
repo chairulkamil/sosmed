@@ -23,12 +23,13 @@ Route::get('/post', 'PostController@index');
 Route::get('/post/create', 'PostController@create');
 Route::post('/post', 'PostController@store');
 Route::get('/post/{post}/edit', 'PostController@edit');
-Route::patch('/post/{post}', 'PostController@update');
+Route::put('/post/{post}', 'PostController@update');
 Route::delete('/post/{post}', 'PostController@destroy');
 
 Route::get('/profile', 'ProfileController@index');
+Route::get('/profile/{profile}', 'ProfileController@show');
 Route::get('/profile/create', 'ProfileController@create');
 Route::post('/profile', 'ProfileController@store');
 Route::get('/profile/{profile}/edit', 'ProfileController@edit');
-Route::patch('/profile/{profile}', 'ProfileController@update');
+Route::put('/profile/{profile}', 'ProfileController@update');
 Route::delete('/profile/{profile}', 'ProfileController@destroy');

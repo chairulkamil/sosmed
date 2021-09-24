@@ -1,4 +1,8 @@
 @extends('layout.master')
+
+@section('title')
+    AsikGan - Halaman Home
+@endsection
 @section('content')
 
 @foreach ($data as $item)
@@ -8,10 +12,14 @@
             <div class="post-title d-flex align-items-center">
                 <!-- profile picture end -->
               <div class="profile-thumb">
-                <a href="#">
+                @if (Auth::user()->id == $item->user->id )
+                <a href="/profile">
+                @else
+                <a href="/profile/{{ $item->user->id }}">
+                @endif
                   <figure class="profile-thumb-middle">
                     <img
-                      src="{{asset('assets/images/profile/profile-small-1.jpg')}}"
+                      src="{{ $item->user->profiles->foto }}"
                       alt="profile picture"
                     />
                   </figure>
@@ -20,7 +28,7 @@
               <!-- profile picture end -->
               <div class="posted-author">
                 <h6 class="author">
-                  <a href="#">{{$item->user->name}}</a>
+                  <a href="/profile/{{$item->user->id}}">{{$item->user->name}}</a>
                 </h6>
                 <span class="post-time">20 min ago</span>
               </div>

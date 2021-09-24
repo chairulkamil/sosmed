@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Profile;
 use App\Post;
 use Auth;
+use App\User;
 
 class ProfileController extends Controller
 {
@@ -89,7 +90,11 @@ class ProfileController extends Controller
      */
     public function show($id)
     {
-        //
+        
+        $profile = User::find($id)->profiles;
+        $data = User::find($id)->posts;
+        //  dd($post);
+        return view('profile.user', compact('profile', 'data'));
     }
 
     /**
@@ -112,7 +117,20 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+        Profile::where('id', $id)
+                ->update([
+                    'fullName' => $request->fullName,
+                    'alamat' => $request->alamat,
+                    'no_hp' => $request->no_hp,
+                    'tgl_lahir' => $request->tgl_lahir,
+                    'work' => $request->work,
+                    'bio' => $request->bio,
+                    'hobby' => $request->hobby,
+                    
+                ]);
+                return redirect('/profile');
+        
     }
 
     /**

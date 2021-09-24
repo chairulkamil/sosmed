@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Adda - Social Network HTML Template</title>
+    <title>@yield('title')</title>
     <meta name="robots" content="noindex, follow" />
     <meta name="description" content="" />
     <meta
@@ -106,40 +106,7 @@
     
     <!-- header area end -->
     <main>
-      <div class="main-wrapper">
-        <div
-          class="profile-banner-large bg-img"
-          data-bg="{{ Auth::user()->profiles->cover }}"
-        ></div>
-        <div class="profile-menu-area bg-white">
-          <div class="container">
-            <div class="row align-items-center">
-              <div class="col-lg-3 col-md-3">
-                <div class="profile-picture-box">
-                  <figure class="profile-picture">
-                    <a href="profile.html">
-                      <img
-                        src="{{ Auth::user()->profiles->foto }}"
-                        alt="profile picture"
-                      />
-                    </a>
-                  </figure>
-                </div>
-              </div>
-              <div
-                class="col-lg-6 col-md-6 offset-lg-1"
-                style="padding-top: 40px; padding-bottom: 40px"
-              >
-                
-              </div>
-              <div class="col-lg-2 col-md-3 d-none d-md-block">
-                <div class="profile-edit-panel">
-                  <button class="edit-btn">edit profile</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      @yield('foto')
         <div class="container">
           <div class="row">
             <div class="col-lg-3 order-2 order-lg-1">
@@ -148,26 +115,7 @@
 
             <div class="col-lg-6 order-1 order-lg-2">
               <!-- share box start -->
-              <div class="card card-small">
-                <div class="share-box-inner">
-                  <!-- profile picture end -->
-                  <div class="profile-thumb">
-                    <a href="#">
-                      <figure class="profile-thumb-middle">
-                        <img
-                          src="{{ Auth::user()->profiles->foto }}"
-                          alt="profile picture"
-                        />
-                      </figure>
-                    </a>
-                  </div>
-                  <!-- profile picture end -->
-                  @include('layout.modalPost')
-                  <!-- share content box start -->
-                  
-                  <!-- Modal end -->
-                
-              </div>
+              @yield('modal')
               <!-- share box end -->
 
               <!-- post status start -->
