@@ -11,18 +11,17 @@
           </a>
           <a href="profile.html" class="profile-thumb-2">
             <img
-              src="{{asset('assets/images/profile/profile-midle-1.jpg')}}"
-              alt=""
+              src="{{ Auth::user()->profiles->foto }}"
+              alt="profile picture"
             />
           </a>
         </figure>
         <div class="profile-desc text-center">
           <h6 class="author">
-            <a href="profile.html">{{Auth::user()->name}}</a>
+            <a href="/profile">{{Auth::user()->name}}</a>
           </h6>
           <p>
-            Any one can join with but Social network us if you want
-            Any one can join with us if you want
+            {{ Auth::user()->profiles->bio }}
           </p>
         </div>
       </div>

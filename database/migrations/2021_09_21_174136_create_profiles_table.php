@@ -20,6 +20,9 @@ class CreateProfilesTable extends Migration
             $table->string('no_hp');
             $table->string('foto')->nullable();
             $table->date('tgl_lahir');
+            $table->string('work');
+            $table->string('bio');
+            $table->string('hobby');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

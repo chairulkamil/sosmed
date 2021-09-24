@@ -55,7 +55,7 @@
               <div class="header-top-navigation">
                 <nav>
                   <ul>
-                    <li class="active"><a href="index.html">home</a></li>
+                    <li class="active"><a href="/post">home</a></li>
                   </ul>
                 </nav>
               </div>
@@ -100,7 +100,7 @@
                   <div class="profile-thumb-small">
                       <a href="javascript:void(0)" class="profile-triger">
                           <figure>
-                              <img src="{{asset('assets/images/profile/profile-small-1.jpg')}}" alt="profile picture">
+                              <img src="{{ Auth::user()->profiles->foto }}" alt="profile picture">
                           </figure>
                       </a>
                       <div class="profile-dropdown">
@@ -110,13 +110,22 @@
                           </div>
                           <div class="profile-body">
                               <ul>
-                                  <li><a href="profile.html"><i class="flaticon-user"></i>Profile</a></li>
+                                  <li><a href="/profile"><i class="flaticon-user"></i>Profile</a></li>
                                   <li><a href="#"><i class="flaticon-message"></i>Inbox</a></li>
                                   <li><a href="#"><i class="flaticon-document"></i>Activity</a></li>
                               </ul>
                               <ul>
                                   {{-- <li><a href="#"><i class="flaticon-settings"></i>Setting</a></li> --}}
-                                  <li><a href="logout"><i class="flaticon-unlock"></i>Sign out</a></li>
+                                  <li>
+                                    <a href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        <i class="flaticon-unlock"></i>{{ __('Logout') }}
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                      @csrf
+                                  </form>
+                                    </li>
                               </ul>
                           </div>
                       </div>
@@ -334,7 +343,7 @@
               <a href="javascript:void(0)" class="profile-triger">
                 <figure class="profile-thumb-middle">
                   <img
-                    src="{{asset('images/profile/profile-small-1.jpg')}}"
+                    src="{{asset('assets/images/profile/profile-small-1.jpg')}}"
                     alt="profile picture"
                   />
                 </figure>
@@ -379,7 +388,6 @@
     <!-- header area end -->
 
     <main>
-
       <div class="main-wrapper pt-80">
         <div class="container">
           <div class="row">
@@ -397,7 +405,7 @@
                     <a href="#">
                       <figure class="profile-thumb-middle">
                         <img
-                          src="{{asset('assets/images/profile/profile-small-37.jpg')}}"
+                          src="{{ Auth::user()->profiles->foto }}"
                           alt="profile picture"
                         />
                       </figure>
