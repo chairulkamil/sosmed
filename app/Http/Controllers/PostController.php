@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\User;
+use App\Comment;
+use App\Like;
 use Auth;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class PostController extends Controller
@@ -17,11 +20,24 @@ class PostController extends Controller
      */
     public function index()
     {
-        $data = Post::with('user')->orderBy('id', 'desc')->get();
         
-        return view('post.index', compact('data'));
+        $data = Post::with('user', 'likes', 'comments')->orderBy('id', 'desc')->get();
+        $likes = Like::select('post_id')->where('user_id', Auth::user()->id)->get();
+        $likeArr= Arr::flatten($likes->toArray()); //convert multidimensional array to single array for easy access
+        return view('post.index', ['data'=>$data,'likes'=>$likeArr]);
 
         
+    }
+
+    public function like(Request $request)
+    {
+        $like = new Like();
+
+        $like->post_id = $request->post_id;
+        $like->user_id = $request->user_id;
+
+        $like->save();
+        return redirect()->back();
     }
 
     /**

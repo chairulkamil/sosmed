@@ -55,4 +55,8 @@ class User extends Authenticatable
     return $this->belongsToMany(Profile::class, 'following', 'followed_profile_id', 'follower_profile_id');
     }
     
+    public function likes()
+    {
+        return $this->hasMany('App\Like');
+    }
 }
