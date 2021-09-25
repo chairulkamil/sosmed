@@ -129,10 +129,59 @@ class ProfileController extends Controller
                     'hobby' => $request->hobby,
                     
                 ]);
+                
                 return redirect('/profile');
         
     }
 
+    public function gantiDP(Request $request, $id)
+    {
+                if(!empty($request->file('image'))){
+                    $nama = md5($id);
+                    $folder = 'private/storage/image';
+                    $extension = $request->file('image')->getClientOriginalExtension();
+                    $file = $nama.".".$extension;
+                    //cek kalo sudah ada hapus
+                    if(file_exists($folder."/".$file)){
+                        unlink($folder."/".$file);
+                    }
+                    //proses upload
+                    if($request->file('image')->move($folder, $file)){
+                        Profile::where('id', $id)
+                                ->update(['foto' => $folder."/".$file, ]);
+                        
+                    }
+                }
+                
+
+                return redirect('/profile');
+        
+    }
+
+    public function gantiCover(Request $request1)
+    {
+                if(!empty($request1->file('cover'))){
+                    $nama1 = md5($request1->id);
+                    $folder1 = 'private/storage/foto';
+                    $extension1 = $request1->file('cover')->getClientOriginalExtension();
+                    $file1 = $nama1.".".$extension1;
+                    //cek kalo sudah ada hapus
+                    if(file_exists($folder1."/".$file1)){
+                        unlink($folder1."/".$file1);
+                    }
+                    //proses upload
+                    $request1->file('cover')->move($folder1, $file1);
+                    
+                        Profile::where('id', $request1->id)
+                                ->update(['cover' => $folder1."/".$file1, ]);
+                        
+                    
+                }
+                
+
+                return redirect('/profile');
+        
+    }
     /**
      * Remove the specified resource from storage.
      *

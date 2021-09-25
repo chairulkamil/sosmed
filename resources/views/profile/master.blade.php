@@ -42,6 +42,7 @@
     <link rel="stylesheet" href="{{asset('assets/css/plugins/lightgallery.min.css')}}" />
     <!-- Main Style CSS -->
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}" />
+    
   </head>
 
   <body>

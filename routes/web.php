@@ -27,6 +27,7 @@ Route::put('/post/{post}', 'PostController@update');
 Route::delete('/post/{post}', 'PostController@destroy');
 Route::post('/like', 'PostController@like');
 
+
 Route::get('/profile', 'ProfileController@index');
 Route::get('/profile/{profile}', 'ProfileController@show');
 Route::get('/profile/create', 'ProfileController@create');
@@ -34,3 +35,5 @@ Route::post('/profile', 'ProfileController@store');
 Route::get('/profile/{profile}/edit', 'ProfileController@edit');
 Route::put('/profile/{profile}', 'ProfileController@update');
 Route::delete('/profile/{profile}', 'ProfileController@destroy');
+Route::put('/foto/{profile}', 'ProfileController@gantiDP');
+Route::patch('/cover', 'ProfileController@gantiCover');

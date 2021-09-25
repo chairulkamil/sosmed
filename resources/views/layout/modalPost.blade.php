@@ -12,7 +12,7 @@
     ></textarea>
   </form>
   <div class="row mt-2">
-    <div class="col-9"><button data-toggle="modal" data-target="#quot" type="button" class="post-share-btn justify-content-md-end" >Quotes</button>
+    <div class="col-8"><button data-toggle="modal" data-target="#quot" type="button" class="post-share-btn justify-content-md-end" >Quotes</button>
     </div>
     <div class="col">
       
