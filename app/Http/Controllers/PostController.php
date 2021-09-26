@@ -37,18 +37,19 @@ class PostController extends Controller
         $like->user_id = $request->user_id;
 
         $like->save();
-        return redirect()->back();
+        return redirect(url()->previous().'#postingan'.$request->post_id);
     }
 
     public function unlike(Request $request)
     {
         $user_id =  $request->user_id;
         $post_id = $request->post_id;
+        
 
         Like::where('user_id', $user_id)
             ->where('post_id', $post_id)
             ->delete();
-        return redirect()->back();
+            return redirect(url()->previous().'#postingan'.$post_id);
     }
 
     /**

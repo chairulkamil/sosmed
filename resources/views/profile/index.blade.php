@@ -85,7 +85,7 @@
     <div class="post-title d-flex align-items-center">
         <!-- profile picture end -->
         <div class="profile-thumb">
-        <a href="#">
+        <a href="#" name="postingan{{$item->id}}">
             <figure class="profile-thumb-middle">
             <img
                 src="{{ Auth::user()->profiles->foto }}"
@@ -143,17 +143,48 @@
         </figure>
         </div>
         <div class="post-meta">
-        <button class="post-meta-like">
-            <i class="bi bi-heart-beat"></i>
-            <span>201 User like this</span>
-            <strong>201</strong>
-        </button>
+
+          {{-- fitur likes  --}}
+          @if (in_array($item->id,$likes))
+          <form action="/unlike" method="POST">
+            @csrf
+            @method('DELETE')
+            <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+            <input type="hidden" name="post_id" value="{{$item->id}}">
+           
+            <button class="like-button" type="submit">
+              <img
+                  class="heart"
+                  src="{{asset('assets/images/icons/heart-color.png')}}"
+                  alt=""
+                />
+                <span>{{ count($item->likes) }} User like this</span>
+            </button>
+          </form>
+          
+              @else
+              <form action="/like" method="POST">
+                @csrf
+                <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+                <input type="hidden" name="post_id" value="{{$item->id}}">
+               
+                <button class="like-button" type="submit">
+                  <img
+                      class="heart"
+                      src="{{asset('assets/images/icons/heart.png')}}"
+                      alt=""
+                    />
+                    <span>{{ count($item->likes) }} User like this</span>
+                </button>
+              </form>
+              
+              @endif
         <ul class="comment-share-meta">
             <li>
-            <button class="post-comment">
-                <i class="bi bi-chat-bubble"></i>
-                <span>41</span>
-            </button>
+              <button class="post-comment">
+                <a href="/post/{{$item->id}}" class="btn btn-info"><i class="bi bi-chat-bubble"></i></a>
+                <span>{{ count($item->comments) }}</span>
+              </button>
             </li>
         </ul>
         </div>
