@@ -30,10 +30,23 @@
           style="padding-top: 40px; padding-bottom: 40px"
         >
           
+          
+            
+          
         </div>
-        <div class="col-lg-2 col-md-3 d-none d-md-block">
+        <div class="col">
           <div class="profile-edit-panel">
-            <button class="edit-btn" data-toggle="modal" data-target="#textbox">edit profile</button>
+            <div class="post-settings-bar">
+              <button class="edit-btn" >Settings</button>
+              <div class="post-settings arrow-shape">
+                  <ul>
+                      <li><button data-toggle="modal" data-target="#textbox">Edit Profile</button></li>
+                      <li><button data-toggle="modal" data-target="#foto">Ganti Foto Profile</button></li>
+                      <li><button data-toggle="modal" data-target="#cover">Ganti Foto Cover</button></li>
+                  </ul>
+              </div>
+          </div>
+            
           </div>
         </div>
       </div>
@@ -252,6 +265,101 @@
           </button>
           <button type="submit" class="post-share-btn">
             Simpan
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="modal fade" id="foto" aria-labelledby="foto">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Ganti Foto Profile</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+        <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <div class="modal-body custom-scroll">
+      <form action="/foto/{{ $profile->id }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
+        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+        
+        <img class="rounded mx-auto d-block" src="{{asset($profile->foto)}}" alt="foto profile">
+
+        <div class="form-group mt-2" >
+          <label for="image">Upload foto Profile baru</label><br>
+          <input type="file" name="image">
+          
+      </div>
+        
+        {{-- <button type="submit" class="btn btn-primary">Submit</button> --}}
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="post-share-btn"
+            data-dismiss="modal"
+          >
+            batal
+          </button>
+          <button type="submit" class="post-share-btn">
+            Ganti
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="modal fade" id="cover" aria-labelledby="cover">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Ganti Foto Cover Profile</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+        <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+    <div class="modal-body custom-scroll">
+      <form action="/cover" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('PATCH')
+        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+        <input type="hidden" name="id" value="{{ $profile->id }}">
+        <img class="rounded mx-auto d-block" src="{{asset($profile->cover)}}" alt="foto cover">
+
+        <div class="form-group mt-2" >
+          <label for="cover">Upload foto Cover baru</label><br>
+          <input type="file" name="cover">
+          
+      </div>
+        
+        {{-- <button type="submit" class="btn btn-primary">Submit</button> --}}
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="post-share-btn"
+            data-dismiss="modal"
+          >
+            batal
+          </button>
+          <button type="submit" class="post-share-btn" value="ganti">
+            Ganti
           </button>
         </div>
       </form>
