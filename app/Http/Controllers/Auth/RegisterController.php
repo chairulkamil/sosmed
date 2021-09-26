@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
+use App\Profile;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -53,6 +54,16 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'fullName' => ['required'],
+            'alamat' => ['required'],
+            'no_hp' => ['required'],
+            'work' => ['required'],
+            'bio' => ['required'],
+            'hobby' => ['required'],
+            'tgl_lahir' => ['required'],
+            'foto' => ['required'],
+            'cover' => ['required'],
+            
         ]);
     }
 
@@ -64,10 +75,28 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        
+
+
+        Profile::create([
+            'fullName' => $data['fullName'],
+            'alamat' => $data['alamat'],
+            'no_hp' => $data['no_hp'],
+            'work' => $data['work'],
+            'bio' => $data['bio'],
+            'hobby' => $data['hobby'],
+            'tgl_lahir' => $data['tgl_lahir'],
+            'cover' => $data['cover'],
+            'foto' => $data['foto'],
+            'user_id' => $user->id,
+        ]);
+
+        return $user;
     }
 }

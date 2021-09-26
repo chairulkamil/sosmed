@@ -13,7 +13,7 @@
                 <!-- profile picture end -->
               <div class="profile-thumb">
                 @if (Auth::user()->id == $item->user->id )
-                <a href="/profile">
+                <a href="/profile" name="postingan{{$item->id}}">
                 @else
                 <a href="/profile/{{ $item->user->id }}">
                 @endif
@@ -28,7 +28,12 @@
               <!-- profile picture end -->
               <div class="posted-author">
                 <h6 class="author">
-                  <a href="/profile/{{$item->user->id}}">{{$item->user->name}}</a>
+                  @if (Auth::user()->id == $item->user->id)
+                  <a href="/profile">{{$item->user->name}}</a>
+                  @else
+                    <a href="/profile/{{$item->user->id}}">{{$item->user->name}}</a>
+                  @endif
+                  
                 </h6>
                 <span class="post-time">20 min ago</span>
               </div>

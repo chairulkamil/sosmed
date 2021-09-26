@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Profile;
 use App\Post;
 use Auth;
+use App\Like;
+use Illuminate\Support\Arr;
 use App\User;
 
 class ProfileController extends Controller
@@ -20,8 +22,11 @@ class ProfileController extends Controller
         $user = Auth::user();
         $profile = $user->profiles;
         $data = $user->posts;
+        $likes = Like::select('post_id')->where('user_id', Auth::user()->id)->get();
+        $likeArr= Arr::flatten($likes->toArray()); //convert multidimensional array to single array for easy access
         // dd($post);
-        return view('profile.index', compact('profile', 'data'));
+        
+        return view('profile.index', ['data'=>$data,'likes'=>$likeArr, 'profile'=>$profile]);
     }
 
     /**
@@ -72,7 +77,7 @@ class ProfileController extends Controller
             }
         }
         // dd($data);
-        return redirect('/profile/' . Auth::user()->id);
+        return redirect('/profile' . Auth::user()->id);
     }
 
     /**
@@ -86,8 +91,11 @@ class ProfileController extends Controller
         
         $profile = User::find($id)->profiles;
         $data = User::find($id)->posts;
+        $likes = Like::select('post_id')->where('user_id', Auth::user()->id)->get();
+        $likeArr= Arr::flatten($likes->toArray()); //convert multidimensional array to single array for easy access
         //  dd($post);
-        return view('profile.user', compact('profile', 'data'));
+        
+        return view('profile.user', ['data'=>$data,'likes'=>$likeArr, 'profile'=>$profile]);
     }
 
     /**
