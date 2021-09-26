@@ -40,6 +40,17 @@ class PostController extends Controller
         return redirect()->back();
     }
 
+    public function unlike(Request $request)
+    {
+        $user_id =  $request->user_id;
+        $post_id = $request->post_id;
+
+        Like::where('user_id', $user_id)
+            ->where('post_id', $post_id)
+            ->delete();
+        return redirect()->back();
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -179,4 +190,6 @@ class PostController extends Controller
         Post::destroy($post->id);
         return redirect()->back()->with('message', 'Data berhasil dihapus!');
     }
+
+    
 }

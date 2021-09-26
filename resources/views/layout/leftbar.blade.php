@@ -3,13 +3,13 @@
     <div class="card card-profile widget-item p-0">
       <div class="profile-banner">
         <figure class="profile-banner-small">
-          <a href="profile.html">
+          <a href="#">
             <img
               src="{{ Auth::user()->profiles->cover }}"
               alt=""
             />
           </a>
-          <a href="profile.html" class="profile-thumb-2">
+          <a href="/profile" class="profile-thumb-2">
             <img
               src="{{ Auth::user()->profiles->foto }}"
               alt="profile picture"

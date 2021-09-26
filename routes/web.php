@@ -27,6 +27,7 @@ Route::get('/post/{post}/edit', 'PostController@edit');
 Route::put('/post/{post}', 'PostController@update');
 Route::delete('/post/{post}', 'PostController@destroy');
 Route::post('/like', 'PostController@like');
+Route::delete('/unlike', 'PostController@unlike');
 
 
 Route::get('/profile', 'ProfileController@index');

@@ -60,33 +60,42 @@
               </div>
               <div class="post-meta">
 
-                <form action="/like" method="POST">
+{{-- fitur likes --}}
+                @if (in_array($item->id,$likes))
+                <form action="/unlike" method="POST">
                   @csrf
+                  @method('DELETE')
                   <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
                   <input type="hidden" name="post_id" value="{{$item->id}}">
-                  @php
-                      $user=Auth::user();
-                  @endphp
-                  @if (in_array($item->id,$likes))
-                  <button class="like-button" type="submit" disabled>
+                 
+                  <button class="like-button" type="submit">
                     <img
                         class="heart"
                         src="{{asset('assets/images/icons/heart-color.png')}}"
                         alt=""
                       />
-                  </button>
-                    @else
-                    <button class="like-button" type="submit">
-                      <img
-                      class="heart-color"
-                      src="{{asset('assets/images/icons/heart.png')}}"
-                      alt=""
-                    />
-                    @endif
-                    <span>{{ count($item->likes) }} User like this</span>
-                    
+                      <span>{{ count($item->likes) }} User like this</span>
                   </button>
                 </form>
+                
+                    @else
+                    <form action="/like" method="POST">
+                      @csrf
+                      <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+                      <input type="hidden" name="post_id" value="{{$item->id}}">
+                     
+                      <button class="like-button" type="submit">
+                        <img
+                            class="heart"
+                            src="{{asset('assets/images/icons/heart.png')}}"
+                            alt=""
+                          />
+                          <span>{{ count($item->likes) }} User like this</span>
+                      </button>
+                    </form>
+                    
+                    @endif
+                    
                 
                 
                 <ul class="comment-share-meta">
