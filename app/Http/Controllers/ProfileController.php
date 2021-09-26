@@ -42,13 +42,6 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'status' => 'required',
-        //     'image' => 'required',
-        //     'caption' => 'required',
-        //     'quotes' => 'required',
-        // ]);
-        // dd($request->all());
         Auth::user();
         $profile =  new Profile();
         $profile->user_id = Auth::user()->id;

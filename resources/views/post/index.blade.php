@@ -92,8 +92,8 @@
                 <ul class="comment-share-meta">
                   <li>
                     <button class="post-comment">
-                      <i class="bi bi-chat-bubble"></i>
-                      <span>41</span>
+                      <a href="/post/{{$item->id}}" class="btn btn-info"><i class="bi bi-chat-bubble"></i></a>
+                      <span>{{ count($item->comments) }}</span>
                     </button>
                   </li>
                 </ul>

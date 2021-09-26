@@ -20,6 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/post', 'PostController@index');
+Route::get('/post/{post}', 'PostController@show');
 Route::get('/post/create', 'PostController@create');
 Route::post('/post', 'PostController@store');
 Route::get('/post/{post}/edit', 'PostController@edit');
@@ -34,3 +35,5 @@ Route::post('/profile', 'ProfileController@store');
 Route::get('/profile/{profile}/edit', 'ProfileController@edit');
 Route::put('/profile/{profile}', 'ProfileController@update');
 Route::delete('/profile/{profile}', 'ProfileController@destroy');
+
+Route::post('/comment', 'CommentController@store');

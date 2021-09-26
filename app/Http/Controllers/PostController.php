@@ -61,7 +61,7 @@ class PostController extends Controller
         
         if(!$request->status && !$request->caption && !$request->image && !$request->quotes){
             return redirect('/post');
-        }else{
+        }
         Auth::user();
         $post =  new Post();
         $post->user_id = Auth::user()->id;
@@ -87,7 +87,7 @@ class PostController extends Controller
                 $post->save();
             }
         }
-        }
+        
         // dd($data);
         return redirect('/post');
     }
@@ -95,12 +95,31 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
+     * 
+     * [
+     *  {
+     *  name: 'post'
+     * code :cpde,
+     * user: {
+     *  username
+     * }
+     * }
+     * ]
+     * 
+     * $post->username
+     * 
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
+        $data = Post::with('user', 'likes', 'comments')->findOrFail($id);
+        $likes = Like::select('post_id')->where('user_id', Auth::user()->id)->get();
+        $likeArr= Arr::flatten($likes->toArray()); //convert multidimensional array to single array for easy access
+        $comment = Comment::with('users')->where('post_id', $id)->get();
+        // dd($comment);
+        return view('post.show', ['data'=>$data,'likes'=>$likeArr, 'comment'=>$comment]);
+
     }
 
     /**
