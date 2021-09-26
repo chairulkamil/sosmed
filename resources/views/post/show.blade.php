@@ -161,10 +161,14 @@
                     <div class="profile-thumb">
                     <a href="#">
                         <figure class="profile-thumb-middle">
-                        <img
-                            src="{{asset('assets/images/profile/profile-small-1.jpg')}}"
-                            alt="profile picture"
-                        />
+                          @if (Auth::user()->profiles->foto != NULL)
+                          <img
+                          src="{{ URL(Auth::user()->profiles->foto) }}" 
+                            alt="post image"
+                          />  
+                          @else
+                              
+                          @endif
                         </figure>
                     </a>
                     </div>
@@ -200,22 +204,81 @@
                     </figure>
                     </div>
                     <div class="post-meta">
-                    <button class="post-meta-like">
-                        <i class="bi bi-heart-beat"></i>
-                        <span>201 User like this</span>
-                        <strong>201</strong>
+                    {{-- fitur likes --}}
+                  @if (in_array($data->id,$likes))
+                  <form action="/unlike" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+                    <input type="hidden" name="post_id" value="{{$data->id}}">
+                  
+                    <button class="like-button" type="submit">
+                      <img
+                          class="heart"
+                          src="{{asset('assets/images/icons/heart-color.png')}}"
+                          alt=""
+                        />
+                        <span>{{ count($data->likes) }} User like this</span>
                     </button>
-                    
-                    </div>
-                </div>
-                <hr>
-                <form class="share-text-box">
-                    @foreach ($comment as $comments)
-                    <span>{{ $comments->users[0]->name }}</span>
-                    <p class="share-text-field">{{ $comments->komentar }}</p>
-                    @endforeach
                   </form>
+                  
+                      @else
+                      <form action="/like" method="POST">
+                        @csrf
+                        <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+                        <input type="hidden" name="post_id" value="{{$data->id}}">
+                      
+                        <button class="like-button" type="submit">
+                          <img
+                              class="heart"
+                              src="{{asset('assets/images/icons/heart.png')}}"
+                              alt=""
+                            />
+                            <span>{{ count($data->likes) }} User like this</span>
+                        </button>
+                      </form>
+                      
+                      @endif
+                      
+                      </div>
+                  </div>
                   <hr>
+                  <form >
+                      @foreach ($comment as $comments)
+                      <div class="share-text-field">
+                        <ul>
+                          <div class="card">
+                            <div class="profile-thumb">
+                              <a href="#">
+                                  <figure class="profile-thumb-small">
+                                    @if (Auth::user()->profiles->foto != NULL)
+                                    <img
+                                    src="{{ URL(Auth::user()->profiles->foto) }}" 
+                                      alt="post image"
+                                    />  
+                                    @else
+                                        
+                                    @endif
+                                  </figure>
+                              </a>
+                            </div>
+                            <div class="float-left">
+                              <li>
+                                <strong>{{ $comments->users[0]->name }}</strong>
+                              </li>
+                              
+                              <li>
+                                <p>{{ $comments->komentar }}</p>
+                              </li>
+                            </div>
+                          </div>
+                        </ul>
+                        {{-- <p>{{ $comments->users[0]->name }}</p> --}}
+                        {{-- <p>{{ $comments->komentar }}</p> --}}
+                      </div>
+                      @endforeach
+                    </form>
+                    <hr>
                   
                 {{-- </div> --}}
                 <form class="share-text-box" action="/comment" method="POST">

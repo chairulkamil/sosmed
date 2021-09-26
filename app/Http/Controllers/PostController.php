@@ -125,7 +125,7 @@ class PostController extends Controller
     public function show($id)
     {
         $data = Post::with('user', 'likes', 'comments')->findOrFail($id);
-        $likes = Like::select('post_id')->where('user_id', Auth::user()->id)->get();
+        $likes = Like::select('post_id')->where('user_id', [Auth::user()->id])->get();
         $likeArr= Arr::flatten($likes->toArray()); //convert multidimensional array to single array for easy access
         $comment = Comment::with('users')->where('post_id', $id)->get();
         // dd($comment);
