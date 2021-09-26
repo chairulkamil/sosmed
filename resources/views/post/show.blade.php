@@ -248,7 +248,7 @@
                       <div class="share-text-field">
                         <ul>
                           <div class="card">
-                            <div class="profile-thumb">
+                            {{-- <div class="profile-thumb">
                               <a href="#">
                                   <figure class="profile-thumb-small">
                                     @if (Auth::user()->profiles->foto != NULL)
@@ -261,8 +261,8 @@
                                     @endif
                                   </figure>
                               </a>
-                            </div>
-                            <div class="float-left">
+                            </div> --}}
+                            {{-- <div class="float-left"> --}}
                               <li>
                                 <strong>{{ $comments->users[0]->name }}</strong>
                               </li>
@@ -270,7 +270,7 @@
                               <li>
                                 <p>{{ $comments->komentar }}</p>
                               </li>
-                            </div>
+                            {{-- </div> --}}
                           </div>
                         </ul>
                         {{-- <p>{{ $comments->users[0]->name }}</p> --}}
