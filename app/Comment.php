@@ -8,8 +8,8 @@ class Comment extends Model
 {
     protected $fillable = ['komentar', 'post_id', 'user_id'];
 
-    public function likes(){
-        return $this->hasMany('App\CLike');
+    public function suka(){
+        return $this->hasMany('App\Suka');
     }
 
     public function users(){

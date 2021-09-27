@@ -11,6 +11,8 @@
 |
 */
 
+use App\Http\Controllers\FollowingController;
+
 Route::get('/', function () {
     return view('layout.front');
 });
@@ -41,3 +43,8 @@ Route::delete('/profile/{profile}', 'ProfileController@destroy');
 Route::post('/comment', 'CommentController@store');
 Route::put('/foto/{profile}', 'ProfileController@gantiDP');
 Route::patch('/cover', 'ProfileController@gantiCover');
+
+Route::post('/suka', 'CommentController@suka');
+Route::delete('/unsuka', 'CommentController@unsuka');
+
+Route::post('/profile/{user}', 'FollowingController@store')->name('following.store');

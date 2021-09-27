@@ -30,141 +30,64 @@
 
     <!-- widget single item start -->
     <div class="card widget-item">
-      <h4 class="widget-title">page you may like</h4>
+      <h4 class="widget-title">Kamu Mungkin Kenal</h4>
       <div class="widget-body">
         <ul class="like-page-list-wrapper">
+
+          @foreach ($users as $user)
+
+          @if ($user->id == Auth::user()->id)
+              
+          @else
           <li class="unorder-list">
             <!-- profile picture end -->
             <div class="profile-thumb">
-              <a href="#">
+              <a href="/profile/{{$user->id}}">
                 <figure class="profile-thumb-small">
                   <img
-                    src="{{asset('assets/images/profile/profile-small-33.jpg')}}"
+                    src="{{asset($user->profiles->foto)}}"
                     alt="profile picture"
                   />
                 </figure>
               </a>
             </div>
             <!-- profile picture end -->
-
+            
             <div class="unorder-list-info">
               <h3 class="list-title">
-                <a href="#">Travel The World</a>
+                <a href="/profile/{{$user->id}}">{{$user->name}}</a>
               </h3>
-              <p class="list-subtitle"><a href="#">adventure</a></p>
+              <p class="list-subtitle"><a href="#">{{$user->profiles->work}}</a></p>
             </div>
-            <button class="like-button active">
-              <img
-                class="heart"
-                src="{{asset('assets/images/icons/heart.png')}}"
-                alt=""
-              />
-              <img
-                class="heart-color"
-                src="{{asset('assets/images/icons/heart-color.png')}}"
-                alt=""
-              />
-            </button>
-          </li>
-          <li class="unorder-list">
-            <!-- profile picture end -->
-            <div class="profile-thumb">
-              <a href="#">
-                <figure class="profile-thumb-small">
-                  <img
-                    src="{{asset('assets/images/profile/profile-small-30.jpg')}}"
-                    alt="profile picture"
-                  />
-                </figure>
-              </a>
-            </div>
-            <!-- profile picture end -->
 
-            <div class="unorder-list-info">
-              <h3 class="list-title">
-                <a href="#">Foodcort Nirala</a>
-              </h3>
-              <p class="list-subtitle"><a href="#">food</a></p>
-            </div>
-            <button class="like-button">
-              <img
-                class="heart"
-                src="{{asset('assets/images/icons/heart.png')}}"
-                alt=""
-              />
-              <img
-                class="heart-color"
-                src="{{asset('assets/images/icons/heart-color.png')}}"
-                alt=""
-              />
-            </button>
-          </li>
-          <li class="unorder-list">
-            <!-- profile picture end -->
-            <div class="profile-thumb">
-              <a href="#">
-                <figure class="profile-thumb-small">
-                  <img
-                    src="{{asset('assets/images/profile/profile-small-5.jpg')}}"
-                    alt="profile picture"
-                  />
-                </figure>
-              </a>
-            </div>
-            <!-- profile picture end -->
 
-            <div class="unorder-list-info">
-              <h3 class="list-title">
-                <a href="#">Rolin Theitar</a>
-              </h3>
-              <p class="list-subtitle"><a href="#">drama</a></p>
-            </div>
-            <button class="like-button">
-              <img
-                class="heart"
-                src="{{asset('assets/images/icons/heart.png')}}"
-                alt=""
-              />
-              <img
-                class="heart-color"
-                src="{{asset('assets/images/icons/heart-color.png')}}"
-                alt=""
-              />
-            </button>
-          </li>
-          <li class="unorder-list">
-            <!-- profile picture end -->
-            <div class="profile-thumb">
-              <a href="#">
-                <figure class="profile-thumb-small">
-                  <img
-                    src="{{asset('assets/images/profile/profile-small-29.jpg')}}"
-                    alt="profile picture"
-                  />
-                </figure>
-              </a>
-            </div>
-            <!-- profile picture end -->
+            <form action="/profile/{{$user->id}}" method="POST" class="like-button">
+              @csrf
+              @if (Auth::user()->follows()->where('following_user_id', $user->id)->first())
+                <input type="hidden" name="user_id" value="{{$user->id}}">
+                <button class="like-button active" type="submit">
+                  <span class="badge badge-pill badge-danger">unfollow</span>
+                </button>
+              @else
+                <input type="hidden" name="user_id" value="{{$user->id}}">
+                <button class="like-button active" type="submit">
+                  <span class="badge badge-pill badge-danger">follow</span>
+                </button>
+              @endif
+              
+            </form>
 
-            <div class="unorder-list-info">
-              <h3 class="list-title">
-                <a href="#">Active Mind</a>
-              </h3>
-              <p class="list-subtitle"><a href="#">fitness</a></p>
-            </div>
-            <button class="like-button">
-              <img
-                class="heart"
-                src="{{asset('assets/images/icons/heart.png')}}"
-                alt=""
-              />
-              <img
-                class="heart-color"
-                src="{{asset('assets/images/icons/heart-color.png')}}"
-                alt=""
-              />
-            </button>
+            
+            
+            
           </li>
+          @endif
+
+          
+          @endforeach
+          <li class="unorder-list">{{ $users->links() }}</li>
+          
+          
         </ul>
       </div>
     </div>

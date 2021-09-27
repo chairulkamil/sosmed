@@ -15,7 +15,7 @@
                 @if (Auth::user()->id == $item->user->id )
                 <a href="/profile" name="postingan{{$item->id}}">
                 @else
-                <a href="/profile/{{ $item->user->id }}">
+                <a href="/profile/{{ $item->user->id }}" name="postingan{{$item->id}}">
                 @endif
                   <figure class="profile-thumb-middle">
                     <img
@@ -29,9 +29,9 @@
               <div class="posted-author">
                 <h6 class="author">
                   @if (Auth::user()->id == $item->user->id)
-                  <a href="/profile">{{$item->user->name}}</a>
+                  <a href="/profile" name="postingan{{$item->id}}" >{{$item->user->name}}</a>
                   @else
-                    <a href="/profile/{{$item->user->id}}">{{$item->user->name}}</a>
+                    <a href="/profile/{{$item->user->id}}" name="postingan{{$item->id}}">{{$item->user->name}}</a>
                   @endif
                   
                 </h6>

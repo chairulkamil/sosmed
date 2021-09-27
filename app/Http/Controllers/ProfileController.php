@@ -88,14 +88,14 @@ class ProfileController extends Controller
      */
     public function show($id)
     {
-        
+        $user = User::find($id);
         $profile = User::find($id)->profiles;
         $data = User::find($id)->posts;
         $likes = Like::select('post_id')->where('user_id', Auth::user()->id)->get();
         $likeArr= Arr::flatten($likes->toArray()); //convert multidimensional array to single array for easy access
         //  dd($post);
         
-        return view('profile.user', ['data'=>$data,'likes'=>$likeArr, 'profile'=>$profile]);
+        return view('profile.user', ['data'=>$data,'likes'=>$likeArr, 'profile'=>$profile, 'user'=>$user]);
     }
 
     /**

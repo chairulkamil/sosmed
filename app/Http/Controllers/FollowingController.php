@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Comment;
-use App\Suka;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 
-class CommentController extends Controller
+class FollowingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,43 +36,19 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->komentar === NULL) return redirect()->back();
+        $follower_id = Auth::user()->id;
+        $follower = User::find($follower_id);
+        $user = User::find($request->user_id);
+        if ($follower->hasFollow($user)) {
+            $follower->unfollow($user);
+        } else {
+            $follower->follow($user);
+        }
         
-        $comment =  new Comment();
-        $comment->user_id = $request->get('user_id');
-        $comment->post_id = $request->get('post_id');
-        $comment->komentar = $request->get('komentar');
-        $comment->save();
-
-        return redirect()->back();
+        
+        
+        return redirect(url()->previous());
     }
-
-    public function suka(Request $request)
-    {
-        
-        $suka = new Suka();
-
-        $suka->comment_id = $request->comment_id;
-        $suka->user_id = $request->user_id;
-
-        $suka->save();
-        
-        return redirect(url()->previous().'#komentar'.$request->comment_id);
-    }
-
-    public function unsuka(Request $request)
-    {
-        $user_id =  $request->user_id;
-        $comment_id = $request->comment_id;
-        
-
-        Suka::where('user_id', $user_id)
-            ->where('comment_id', $comment_id)
-            ->delete();
-            return redirect(url()->previous().'#komentar'.$comment_id);
-    }
-
-
 
     /**
      * Display the specified resource.

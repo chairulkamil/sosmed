@@ -159,11 +159,11 @@
                 <div class="post-title d-flex align-items-center">
                     <!-- profile picture end -->
                     <div class="profile-thumb">
-                    <a href="#">
+                    <a href="/profile/{{ $data->user->id }}">
                         <figure class="profile-thumb-middle">
-                          @if (Auth::user()->profiles->foto != NULL)
+                          @if ($data->user->profiles->foto != NULL)
                           <img
-                          src="{{ URL(Auth::user()->profiles->foto) }}" 
+                          src="{{ URL($data->user->profiles->foto) }}" 
                             alt="post image"
                           />  
                           @else
@@ -175,7 +175,7 @@
                     <!-- profile picture end -->
                     <div class="posted-author">
                     <h6 class="author">
-                        <a href="#">{{ $data->user->name }}</a>
+                        <a href="/profile/{{ $data->user->id }}">{{ $data->user->name }}</a>
                     </h6>
                     <span class="post-time">20 min ago</span>
                     </div>
@@ -204,80 +204,114 @@
                     </figure>
                     </div>
                     <div class="post-meta">
-                    {{-- fitur likes --}}
-                  @if (in_array($data->id,$likes))
-                  <form action="/unlike" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-                    <input type="hidden" name="post_id" value="{{$data->id}}">
-                  
-                    <button class="like-button" type="submit">
-                      <img
-                          class="heart"
-                          src="{{asset('assets/images/icons/heart-color.png')}}"
-                          alt=""
-                        />
-                        <span>{{ count($data->likes) }} User like this</span>
-                    </button>
-                  </form>
-                  
-                      @else
-                      <form action="/like" method="POST">
-                        @csrf
-                        <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-                        <input type="hidden" name="post_id" value="{{$data->id}}">
-                      
-                        <button class="like-button" type="submit">
-                          <img
-                              class="heart"
-                              src="{{asset('assets/images/icons/heart.png')}}"
-                              alt=""
-                            />
-                            <span>{{ count($data->likes) }} User like this</span>
-                        </button>
-                      </form>
-                      
-                      @endif
+                   {{-- fitur likes --}}
+                @if (in_array($data->id,$likes))
+                <form action="/unlike" method="POST">
+                  @csrf
+                  @method('DELETE')
+                  <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+                  <input type="hidden" name="post_id" value="{{$data->id}}">
+                 
+                  <button class="like-button" type="submit">
+                    <img
+                        class="heart"
+                        src="{{asset('assets/images/icons/heart-color.png')}}"
+                        alt=""
+                      />
+                      <span>{{ count($data->likes) }} Users like this</span>
+                  </button>
+                </form>
+                
+                    @else
+                    <form action="/like" method="POST">
+                      @csrf
+                      <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+                      <input type="hidden" name="post_id" value="{{$data->id}}">
+                     
+                      <button class="like-button" type="submit">
+                        <img
+                            class="heart"
+                            src="{{asset('assets/images/icons/heart.png')}}"
+                            alt=""
+                          />
+                          <span>{{ count($data->likes) }} Users like this</span>
+                      </button>
+                    </form>
+                    
+                    @endif
+
+                    {{-- end fitur likes --}}
                       
                       </div>
                   </div>
                   <hr>
-                  <form >
+                  
                       @foreach ($comment as $comments)
-                      <div class="share-text-field">
-                        <ul>
-                          <div class="card">
-                            {{-- <div class="profile-thumb">
-                              <a href="#">
-                                  <figure class="profile-thumb-small">
-                                    @if (Auth::user()->profiles->foto != NULL)
-                                    <img
-                                    src="{{ URL(Auth::user()->profiles->foto) }}" 
-                                      alt="post image"
-                                    />  
-                                    @else
-                                        
-                                    @endif
-                                  </figure>
-                              </a>
-                            </div> --}}
-                            {{-- <div class="float-left"> --}}
-                              <li>
-                                <strong>{{ $comments->users[0]->name }}</strong>
-                              </li>
+
+                      <div class="card card-white post">
+                        <div class="post-heading">
+                            <div class="float-left image">
+                                <img src="{{asset($comments->users[0]->profiles->foto)}}" class="img-circle avatar" alt="user profile image" width="50px">
+                            </div>
+                            <div class="float-left meta ml-2">
+                                <div class="title">
+                                    <a name="komentar{{$comments->id}}" class="text-dark" href="/profile/{{ $comments->users[0]->id }}"><b>{{ $comments->users[0]->name }}</b></a>
+                                    
+                                </div>
+                                
+                            </div>
+                        </div> 
+                        <div class="post-description mt-3 "> 
+                            <p>{{ $comments->komentar }}</p>
+        
+                        </div>
+                        <div class="mt-3">
+                          {{-- fitur likes komentar --}}
+                                
+                          @if (in_array($comments->id,$clikes))
+                          <form action="/unsuka" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+                            <input type="hidden" name="comment_id" value="{{$comments->id}}">
+                          
+                            <button class="like-button" type="submit">
+                              <img
+                                  class="heart"
+                                  src="{{asset('assets/images/icons/heart-color.png')}}"
+                                  alt=""
+                                />
+                                <span>{{ count($comments->suka) }} Users like this</span>
+                            </button>
+                          </form>
+                      
+                          @else
+                          <form action="/suka" method="POST">
+                            @csrf
+                            <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+                            <input type="hidden" name="comment_id" value="{{$comments->id}}">
+                          
+                            <button class="like-button" type="submit">
+                              <img
+                                  class="heart"
+                                  src="{{asset('assets/images/icons/heart.png')}}"
+                                  alt=""
+                                />
+                                <span>{{ count($comments->suka) }} Users like this</span>
+                            </button>
+                          </form>
+                          
+                          @endif
+                        </div>
+                    </div>
+
+
+                      
                               
-                              <li>
-                                <p>{{ $comments->komentar }}</p>
-                              </li>
-                            {{-- </div> --}}
-                          </div>
-                        </ul>
-                        {{-- <p>{{ $comments->users[0]->name }}</p> --}}
-                        {{-- <p>{{ $comments->komentar }}</p> --}}
-                      </div>
                       @endforeach
-                    </form>
+                      
+                    
+                    
                     <hr>
                   
                 {{-- </div> --}}

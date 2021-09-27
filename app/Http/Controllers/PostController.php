@@ -7,6 +7,7 @@ use App\Post;
 use App\User;
 use App\Comment;
 use App\Like;
+use App\Suka;
 use Auth;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
@@ -24,7 +25,15 @@ class PostController extends Controller
         $data = Post::with('user', 'likes', 'comments')->orderBy('id', 'desc')->get();
         $likes = Like::select('post_id')->where('user_id', Auth::user()->id)->get();
         $likeArr= Arr::flatten($likes->toArray()); //convert multidimensional array to single array for easy access
-        return view('post.index', ['data'=>$data,'likes'=>$likeArr]);
+
+        $users= User::paginate(5);
+        
+        
+        $followed = User::join('followings', 'users.id', '=', 'followings.follower_profile_id')
+                    ->where('followings.follower_profile_id', Auth::user()->id)
+                    ->get();
+
+        return view('post.index', ['data'=>$data,'likes'=>$likeArr, 'users'=>$users]);
 
         
     }
@@ -128,9 +137,13 @@ class PostController extends Controller
         $data = Post::with('user', 'likes', 'comments')->findOrFail($id);
         $likes = Like::select('post_id')->where('user_id', [Auth::user()->id])->get();
         $likeArr= Arr::flatten($likes->toArray()); //convert multidimensional array to single array for easy access
+
+        $clikes = Suka::select('comment_id')->where('user_id', [Auth::user()->id])->get();
+        $clikeArr= Arr::flatten($clikes->toArray()); //convert multidimensional array to single array for easy access
+
         $comment = Comment::with('users')->where('post_id', $id)->get();
         // dd($comment);
-        return view('post.show', ['data'=>$data,'likes'=>$likeArr, 'comment'=>$comment]);
+        return view('post.show', ['data'=>$data,'likes'=>$likeArr, 'comment'=>$comment, 'clikes'=>$clikeArr]);
 
     }
 

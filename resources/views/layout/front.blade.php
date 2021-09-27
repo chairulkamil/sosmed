@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Adda - Social Network HTML Template</title>
+    <title>AsikGan - Sosmed Karya Anak Bangsa</title>
     <meta name="robots" content="noindex, follow" />
     <meta name="description" content="" />
     <meta
@@ -105,11 +105,10 @@
                 <div class="col-lg-6 order-2 order-lg-1">
                   <div
                     class="timeline-bg-content bg-img"
-                    data-bg="assets/images/timeline/adda-timeline.jpg"
+                    data-bg="{{asset('assets/images/timeline/background.jpg')}}"
                   >
                     <h3 class="timeline-bg-title">
-                      Let’s see what’s happening to you and your world. Welcome
-                      in Osmodeus.
+                      AsikGan, Sosmed Karya Anak Bangsa
                     </h3>
                   </div>
                 </div>

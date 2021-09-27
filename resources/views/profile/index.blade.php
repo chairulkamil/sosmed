@@ -27,8 +27,21 @@
         </div>
         <div
           class="col-lg-6 col-md-6 offset-lg-1"
-          style="padding-top: 40px; padding-bottom: 40px"
+          
         >
+        <div class="profile-menu-wrapper">
+          <div class="main-menu-inner header-top-navigation">
+              <nav>
+                  <ul class="main-menu">
+                      <li><a href="#post">{{count(Auth::user()->posts)}} Posts</a></li>
+                      <li><a href="/followers">{{count(Auth::user()->followed)}} followers</a></li>
+                      <li><a  href="/following">{{count(Auth::user()->follows)}} following</a></li>
+                      
+                      <!-- <li class="d-inline-block d-md-none"><a href="profile.html">edit profile</a></li> -->
+                  </ul>
+              </nav>
+          </div>
+      </div>
           
           
             
@@ -78,120 +91,124 @@
 @endsection
 
 @section('post')
-    @foreach ($data as $item)
-    <div class="card">
-    <!-- post title start -->
-    {{-- <div class="card-body"> --}}
-    <div class="post-title d-flex align-items-center">
-        <!-- profile picture end -->
-        <div class="profile-thumb">
-        <a href="#" name="postingan{{$item->id}}">
-            <figure class="profile-thumb-middle">
-            <img
-                src="{{ Auth::user()->profiles->foto }}"
-                alt="profile picture"
-            />
-            </figure>
-        </a>
+<section id="post">
+  @foreach ($data as $item)
+  <div class="card">
+  <!-- post title start -->
+  {{-- <div class="card-body"> --}}
+  <div class="post-title d-flex align-items-center">
+      <!-- profile picture end -->
+      <div class="profile-thumb">
+      <a href="#" name="postingan{{$item->id}}">
+          <figure class="profile-thumb-middle">
+          <img
+              src="{{ Auth::user()->profiles->foto }}"
+              alt="profile picture"
+          />
+          </figure>
+      </a>
+      </div>
+      <!-- profile picture end -->
+      <div class="posted-author">
+      <h6 class="author">
+          <a href="#">{{$item->user->name}}</a>
+      </h6>
+      <span class="post-time">20 min ago</span>
+      </div>
+      
+      <div class="post-settings-bar">
+        <span></span>
+        <span></span>
+        <span></span>
+        <div class="post-settings arrow-shape">
+          <ul>
+            <li><a href="/post/{{$item->id}}/edit" class="text-dark">Edit post</a></li>
+            <li><form action="/post/{{$item->id}}" method="POST">
+              @csrf
+              @method('DELETE')
+              <button type="submit" class="text-danger">Delete</button>
+            </form></li>
+          </ul>
         </div>
-        <!-- profile picture end -->
-        <div class="posted-author">
-        <h6 class="author">
-            <a href="#">{{$item->user->name}}</a>
-        </h6>
-        <span class="post-time">20 min ago</span>
-        </div>
-        <div class="post-settings-bar">
-          <span></span>
-          <span></span>
-          <span></span>
-          <div class="post-settings arrow-shape">
-            <ul>
-              <li><a href="/post/{{$item->id}}/edit" class="text-dark">Edit post</a></li>
-              <li><form action="/post/{{$item->id}}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="text-danger">Delete</button>
-              </form></li>
-            </ul>
-          </div>
-        </div>
-    </div>
+      </div>
+  </div>
 
-    <!-- post title start -->
-    <div class="post-content">
-        <p class="post-desc">
-        {{ $item->status }}
-        <blockquote class="blockquote">
-            <p class="mb-0">{{ $item->quotes }}</p>
-        </blockquote>
-        
-        {{ $item->caption }}
-        </p>
-        <div class="post-thumb-gallery">
-        <figure class="post-thumb img-popup">
-        
-            @if ($item->image != NULL)
-            <img
-            src="{{ URL($item->image) }}" 
-                alt="post image"
-            />  
-            
-            @else
-                
-            @endif
-        </figure>
-        </div>
-        <div class="post-meta">
-
-          {{-- fitur likes  --}}
-          @if (in_array($item->id,$likes))
-          <form action="/unlike" method="POST">
-            @csrf
-            @method('DELETE')
-            <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-            <input type="hidden" name="post_id" value="{{$item->id}}">
-           
-            <button class="like-button" type="submit">
-              <img
-                  class="heart"
-                  src="{{asset('assets/images/icons/heart-color.png')}}"
-                  alt=""
-                />
-                <span>{{ count($item->likes) }} User like this</span>
-            </button>
-          </form>
+  <!-- post title start -->
+  <div class="post-content">
+      <p class="post-desc">
+      {{ $item->status }}
+      <blockquote class="blockquote">
+          <p class="mb-0">{{ $item->quotes }}</p>
+      </blockquote>
+      
+      {{ $item->caption }}
+      </p>
+      <div class="post-thumb-gallery">
+      <figure class="post-thumb img-popup">
+      
+          @if ($item->image != NULL)
+          <img
+          src="{{ URL($item->image) }}" 
+              alt="post image"
+          />  
           
-              @else
-              <form action="/like" method="POST">
-                @csrf
-                <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-                <input type="hidden" name="post_id" value="{{$item->id}}">
-               
-                <button class="like-button" type="submit">
-                  <img
-                      class="heart"
-                      src="{{asset('assets/images/icons/heart.png')}}"
-                      alt=""
-                    />
-                    <span>{{ count($item->likes) }} User like this</span>
-                </button>
-              </form>
+          @else
               
-              @endif
-        <ul class="comment-share-meta">
-            <li>
-              <button class="post-comment">
-                <a href="/post/{{$item->id}}" class="btn btn-info"><i class="bi bi-chat-bubble"></i></a>
-                <span>{{ count($item->comments) }}</span>
+          @endif
+      </figure>
+      </div>
+      <div class="post-meta">
+
+        {{-- fitur likes  --}}
+        @if (in_array($item->id,$likes))
+        <form action="/unlike" method="POST">
+          @csrf
+          @method('DELETE')
+          <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+          <input type="hidden" name="post_id" value="{{$item->id}}">
+         
+          <button class="like-button" type="submit">
+            <img
+                class="heart"
+                src="{{asset('assets/images/icons/heart-color.png')}}"
+                alt=""
+              />
+              <span>{{ count($item->likes) }} User like this</span>
+          </button>
+        </form>
+        
+            @else
+            <form action="/like" method="POST">
+              @csrf
+              <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+              <input type="hidden" name="post_id" value="{{$item->id}}">
+             
+              <button class="like-button" type="submit">
+                <img
+                    class="heart"
+                    src="{{asset('assets/images/icons/heart.png')}}"
+                    alt=""
+                  />
+                  <span>{{ count($item->likes) }} User like this</span>
               </button>
-            </li>
-        </ul>
-        </div>
-    </div>
-    {{-- </div> --}}
-    </div>
-    @endforeach
+            </form>
+            
+            @endif
+      <ul class="comment-share-meta">
+          <li>
+            <button class="post-comment">
+              <a href="/post/{{$item->id}}" class="btn btn-info"><i class="bi bi-chat-bubble"></i></a>
+              <span>{{ count($item->comments) }}</span>
+            </button>
+          </li>
+      </ul>
+      </div>
+  </div>
+  {{-- </div> --}}
+  </div>
+  @endforeach
+</section>
+    
 @endsection
 
 @section('leftProfile')

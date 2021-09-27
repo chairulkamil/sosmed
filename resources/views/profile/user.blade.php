@@ -23,13 +23,37 @@
         </div>
         <div
           class="col-lg-6 col-md-6 offset-lg-1"
-          style="padding-top: 40px; padding-bottom: 40px"
+          
         >
+        <div class="profile-menu-wrapper">
+          <div class="main-menu-inner header-top-navigation">
+              <nav>
+                  <ul class="main-menu">
+                      <li><a href="#post">{{count($data)}} Posts</a></li>
+                      <li><a href="/followers">{{count($user->followed)}} followers</a></li>
+                      <li><a  href="/following">{{count($user->follows)}} following</a></li>
+                      
+                      <!-- <li class="d-inline-block d-md-none"><a href="profile.html">edit profile</a></li> -->
+                  </ul>
+              </nav>
+          </div>
+      </div>
           
         </div>
         <div class="col-lg-2 col-md-3 d-none d-md-block">
           <div class="profile-edit-panel">
-            <button class="edit-btn">Follow</button>
+            <form action="/profile/{{$profile->user_id}}" method="POST">
+              @csrf
+              @if (Auth::user()->follows()->where('following_user_id', $user->id)->first())
+                <input type="hidden" name="user_id" value="{{$profile->user_id}}">
+                <button class="edit-btn" type="submit">Unfollow</button>
+              @else
+                <input type="hidden" name="user_id" value="{{$profile->user_id}}">
+                <button class="edit-btn" type="submit">Follow</button>
+              @endif
+              
+            </form>
+            
           </div>
         </div>
       </div>
