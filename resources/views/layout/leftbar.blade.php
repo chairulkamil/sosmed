@@ -65,12 +65,12 @@
               @csrf
               @if (Auth::user()->follows()->where('following_user_id', $user->id)->first())
                 <input type="hidden" name="user_id" value="{{$user->id}}">
-                <button class="like-button active" type="submit">
+                <button class="like-button active" type="submit" id="unfollowbtn">
                   <span class="badge badge-pill badge-danger">unfollow</span>
                 </button>
               @else
                 <input type="hidden" name="user_id" value="{{$user->id}}">
-                <button class="like-button active" type="submit">
+                <button class="like-button active" type="submit" id="followbtn">
                   <span class="badge badge-pill badge-danger">follow</span>
                 </button>
               @endif
@@ -98,4 +98,17 @@
       </div>
     </div>
     <!-- widget single item end -->
+    @push('leftfollow')
+        <script>
+          const follow = document.getElementById('followbtn');
+      follow.addEventListener('click', function(){
+        swal("Followed", "user berhasil di-follow!", "success");
+      });
+
+      const unfollow = document.getElementById('unfollowbtn');
+      unfollow.addEventListener('click', function(){
+        swal("Unfollowed", "user berhasil di-unfollow!", "success");
+      });
+        </script>
+    @endpush
   </aside>

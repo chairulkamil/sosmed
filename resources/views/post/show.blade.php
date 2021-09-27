@@ -65,7 +65,7 @@
             <div class="col-md-2">
               <!-- brand logo start -->
               <div class="brand-logo text-center">
-                <a href="index.html">
+                <a href="/post">
                   <img src="{{asset('assets/images/logo/logo.png')}}" alt="brand logo" />
                 </a>
               </div>

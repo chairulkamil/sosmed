@@ -36,6 +36,19 @@
                   
                 </h6>
                 <span class="post-time">{{$item->created_at->diffForHumans()}}</span>
+                @if ($item->quotes)
+                    <span class="post-time">
+                      <form action="/cetak/quotes" method="POST">
+                        @csrf
+                        <input type="hidden" name="post_id" value="{{$item->id}}">
+                        <button class="post-share-btn" type="submit"><i class="bi bi-printer"></i> to pdf</button>
+                      </form>
+                      
+                    </span>
+                @else
+                    
+                @endif
+                
               </div>
             </div>
 
@@ -43,10 +56,7 @@
             <div class="post-content">
               <p class="post-desc">
                 {{ $item->status }}
-                <blockquote class="blockquote">
-                  <p class="mb-0">{{ $item->quotes }}</p>
-                </blockquote>
-                
+                {!! $item->quotes !!}
                 {{ $item->caption }}
               </p>
               <div class="post-thumb-gallery">
@@ -107,7 +117,7 @@
                   <li>
                     <button class="post-comment">
                       <a href="/post/{{$item->id}}" class="btn btn-info"><i class="bi bi-chat-bubble"></i></a>
-                      <span>{{ count($item->comments) }}</span>
+                      <span>{{ count($item->comments) }}</span> 
                     </button>
                   </li>
                 </ul>

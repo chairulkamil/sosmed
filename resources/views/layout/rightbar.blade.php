@@ -4,7 +4,7 @@
       <h4 class="widget-title">Iklan</h4>
       <div class="widget-body">
         <div class="add-thumb">
-          <a href="#">
+          <a href="https://covid19.go.id/" target="__blank">
             <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
               <div class="carousel-inner">
                 <div class="carousel-item active">

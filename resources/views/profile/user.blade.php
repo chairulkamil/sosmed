@@ -1,5 +1,7 @@
 @extends('profile.master')
-
+@section('title')
+    {{$profile->fullName}}
+@endsection
 @section('foto')
 <div class="main-wrapper">
   <div

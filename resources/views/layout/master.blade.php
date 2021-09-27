@@ -24,6 +24,7 @@
       href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900"
       rel="stylesheet"
     />
+    
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{asset('assets/css/vendor/bootstrap.min.css')}}" />
     <!-- Icon Font CSS -->
@@ -42,6 +43,9 @@
     <link rel="stylesheet" href="{{asset('assets/css/plugins/lightgallery.min.css')}}" />
     <!-- Main Style CSS -->
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}" />
+    {{-- ckeditor --}}
+    <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+    
   </head>
 
   <body>
@@ -65,7 +69,7 @@
             <div class="col-md-2">
               <!-- brand logo start -->
               <div class="brand-logo text-center">
-                <a href="index.html">
+                <a href="/post">
                   <img src="{{asset('assets/images/logo/logo.png')}}" alt="brand logo" />
                 </a>
               </div>
@@ -472,5 +476,10 @@
     <script src="{{asset('assets/js/plugins/isotope.pkgd.min.js')}}"></script>
     <!-- Main JS -->
     <script src="{{asset('assets/js/main.js')}}"></script>
+
+    {{-- sweet alert --}}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @stack('status')
+    @stack('leftfollow')
   </body>
 </html>

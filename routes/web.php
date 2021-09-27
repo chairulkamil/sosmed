@@ -17,6 +17,8 @@ Route::get('/', function () {
     return view('layout.front');
 });
 
+
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -54,3 +56,5 @@ Route::get('/following', 'FollowingController@following')->name('profile.followi
 Route::get('/followers', 'FollowingController@followers')->name('profile.followers');
 Route::get('/following/{user}', 'FollowingController@followingid')->name('profile.followingid');
 Route::get('/followers/{user}', 'FollowingController@followersid')->name('profile.followersid');
+
+Route::post('/cetak/quotes', 'PostController@pdf');

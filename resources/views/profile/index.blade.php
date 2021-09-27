@@ -53,7 +53,7 @@
               <button class="edit-btn" >Settings</button>
               <div class="post-settings arrow-shape">
                   <ul>
-                      <li><button data-toggle="modal" data-target="#textbox">Edit Profile</button></li>
+                      <li><button data-toggle="modal" data-target="#editprofile">Edit Profile</button></li>
                       <li><button data-toggle="modal" data-target="#foto">Ganti Foto Profile</button></li>
                       <li><button data-toggle="modal" data-target="#cover">Ganti Foto Cover</button></li>
                   </ul>
@@ -137,9 +137,7 @@
   <div class="post-content">
       <p class="post-desc">
       {{ $item->status }}
-      <blockquote class="blockquote">
-          <p class="mb-0">{{ $item->quotes }}</p>
-      </blockquote>
+      {!! $item->quotes !!}
       
       {{ $item->caption }}
       </p>
@@ -246,7 +244,7 @@
   </aside>
 @endsection
 
-<div class="modal fade" id="textbox" aria-labelledby="textbox">
+<div class="modal fade" id="editprofile" aria-labelledby="textbox">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -358,7 +356,7 @@
           >
             batal
           </button>
-          <button type="submit" class="post-share-btn">
+          <button type="submit" class="post-share-btn" id="gantifoto">
             Ganti
           </button>
         </div>
@@ -406,7 +404,7 @@
           >
             batal
           </button>
-          <button type="submit" class="post-share-btn" value="ganti">
+          <button type="submit" class="post-share-btn" value="ganti" id="ganticover">
             Ganti
           </button>
         </div>
@@ -414,4 +412,18 @@
     </div>
   </div>
 </div>
+@push('ganti')
+<script>
+  const btn = document.getElementById('ganticover');
+  btn.addEventListener('click', function(){
+    swal("Berhasil", "Foto Sampul Berhasil diganti!", "success");
+  });
+
+  const gantifoto = document.getElementById('gantifoto');
+  gantifoto.addEventListener('click', function(){
+    swal("Berhasil", "Foto Profile Berhasil diganti!", "success");
+  });
+  gantifoto
+</script>
+@endpush
 </div>

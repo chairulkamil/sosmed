@@ -9,6 +9,9 @@ use App\Comment;
 use App\Like;
 use App\Suka;
 use Auth;
+use App;
+
+
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
 
@@ -132,6 +135,7 @@ class PostController extends Controller
         }
         
         // dd($data);
+        
         return redirect('/post');
     }
 
@@ -227,5 +231,17 @@ class PostController extends Controller
         return redirect()->back()->with('message', 'Data berhasil dihapus!');
     }
 
+    public function pdf(Request $request)
+    {
+        $data = Post::where('id', $request->post_id)
+                    ->select('quotes')
+                    ->get();
+
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadHTML($data);
+        return $pdf->stream();
+    }     
+
+            
     
 }

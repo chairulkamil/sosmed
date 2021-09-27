@@ -12,7 +12,7 @@
     ></textarea>
   </form>
   <div class="row mt-2">
-    <div class="col-8"><button data-toggle="modal" data-target="#quot" type="button" class="post-share-btn justify-content-md-end" >Quotes</button>
+    <div class="col-8"><button data-toggle="modal" data-target="#quot" type="button" class="post-share-btn justify-content-md-end" >Quotes / Cerita</button>
     </div>
     <div class="col">
       
@@ -61,7 +61,7 @@
           >
             cancel
           </button>
-          <button type="submit" class="post-share-btn">
+          <button type="submit" class="post-share-btn" id="statusbtn">
             post
           </button>
         </div>
@@ -94,12 +94,8 @@
         
         
         <div class="form-group" >
-            <input type="text" name="quotes" class="form-control" id="quotes" placeholder="Masukkan Quotes">
-            @error('quotes')
-                <div class="alert alert-danger">
-                    {{ $message }}
-                </div>
-            @enderror
+          <textarea class="ckeditor form-control" name="quotes"></textarea>
+            
         </div>
         {{-- <button type="submit" class="btn btn-primary">Submit</button> --}}
         <div class="modal-footer">
@@ -110,7 +106,7 @@
           >
             cancel
           </button>
-          <button type="submit" class="post-share-btn">
+          <button type="submit" class="post-share-btn" id="quotesbtn">
             post
           </button>
         </div>
@@ -168,7 +164,7 @@
           >
             cancel
           </button>
-          <button type="submit" class="post-share-btn">
+          <button type="submit" class="post-share-btn" id="fotobtn">
             post
           </button>
         </div>
@@ -179,3 +175,22 @@
 </div>
 
 </div>
+
+@push('status')
+    <script>
+       const statusbtn = document.getElementById('statusbtn');
+      statusbtn.addEventListener('click', function(){
+        swal("Berhasil", "Status Berhasil di update!", "success");
+      });
+
+      const quotesbtn = document.getElementById('quotesbtn');
+      quotesbtn.addEventListener('click', function(){
+        swal("Berhasil", "Quotes Berhasil di-posting!", "success");
+      });
+      
+      const fotobtn = document.getElementById('fotobtn');
+      fotobtn.addEventListener('click', function(){
+        swal("Berhasil", "Foto Berhasil di-posting!", "success");
+      });
+    </script>
+@endpush
