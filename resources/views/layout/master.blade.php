@@ -83,13 +83,15 @@
               >
                 <!-- header top search start -->
                 <div class="header-top-search">
-                  <form class="top-search-box">
+                  <form action="/users/cari" class="top-search-box" method="GET">
+                    @csrf
                     <input
+                      name="name"
                       type="text"
                       placeholder="Search"
                       class="top-search-field"
                     />
-                    <button class="top-search-btn">
+                    <button class="top-search-btn" type="submit">
                       <i class="flaticon-search"></i>
                     </button>
                   </form>
@@ -111,8 +113,7 @@
                           <div class="profile-body">
                               <ul>
                                   <li><a href="/profile"><i class="flaticon-user"></i>Profile</a></li>
-                                  <li><a href="#"><i class="flaticon-message"></i>Inbox</a></li>
-                                  <li><a href="#"><i class="flaticon-document"></i>Activity</a></li>
+                                  
                               </ul>
                               <ul>
                                   {{-- <li><a href="#"><i class="flaticon-settings"></i>Setting</a></li> --}}

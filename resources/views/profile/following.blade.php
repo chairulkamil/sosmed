@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>@yield('title')</title>
+    <title>Final Projects - ASMODEUS</title>
     <meta name="robots" content="noindex, follow" />
     <meta name="description" content="" />
     <meta
@@ -14,7 +14,7 @@
     <link
       rel="shortcut icon"
       type="image/x-icon"
-      href="{{asset('assets/images/favicon.ico')}}"
+      href="assets/images/favicon.ico"
     />
 
     <!-- CSS
@@ -42,7 +42,6 @@
     <link rel="stylesheet" href="{{asset('assets/css/plugins/lightgallery.min.css')}}" />
     <!-- Main Style CSS -->
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}" />
-    
   </head>
 
   <body>
@@ -98,6 +97,43 @@
                   </form>
                 </div>
                 <!-- header top search end -->
+                <!-- profile picture start -->
+                <div class="profile-setting-box">
+                  <div class="profile-thumb-small">
+                      <a href="javascript:void(0)" class="profile-triger">
+                          <figure>
+                              <img src="{{ asset(Auth::user()->profiles->foto) }}" alt="profile picture">
+                          </figure>
+                      </a>
+                      <div class="profile-dropdown">
+                          <div class="profile-head">
+                              <h5 class="name"><a href="#">{{ Auth::user()->name }}</a></h5>
+                              <a class="mail" href="#">{{ Auth::user()->email }}</a>
+                          </div>
+                          <div class="profile-body">
+                              <ul>
+                                  <li><a href="/profile"><i class="flaticon-user"></i>Profile</a></li>
+                                  <li><a href="#"><i class="flaticon-message"></i>Inbox</a></li>
+                                  <li><a href="#"><i class="flaticon-document"></i>Activity</a></li>
+                              </ul>
+                              <ul>
+                                  {{-- <li><a href="#"><i class="flaticon-settings"></i>Setting</a></li> --}}
+                                  <li>
+                                    <a href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        <i class="flaticon-unlock"></i>{{ __('Logout') }}
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                      @csrf
+                                  </form>
+                                    </li>
+                              </ul>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <!-- profile picture end -->
               </div>
             </div>
           </div>
@@ -107,29 +143,74 @@
     <!-- header area end -->
     <!-- header area start -->
     
-    <!-- header area end -->
+
     <main>
-      @yield('foto')
+      <div class="main-wrapper pt-80">
         <div class="container">
           <div class="row">
             <div class="col-lg-3 order-2 order-lg-1">
-              @yield('leftProfile')
+              {{-- leftbar --}}
+             
             </div>
-
-            <div class="col-lg-6 order-1 order-lg-2">
-              <!-- share box start -->
-              @yield('modal')
-              <!-- share box end -->
-
-              <!-- post status start -->
-              @yield('post')
-              <!-- post status end -->
-            </div>
-
-            @include('layout.rightbar')
-          </div>
+    
+        <div class="col-lg-6 order-1 order-lg-2">
+            <!-- share box start -->
+            <div class="card">
+                <div class="card-title"><h5>Following List ({{count($following)}} of {{count($total)}})</h5></div>
+            <ul class="like-page-list-wrapper">
+                @foreach ($following as $item)
+                <li class="unorder-list">
+                    <div class="profile-thumb">
+                    <a href="/profile/{{$item->id}}">
+                        <figure class="profile-thumb-small">
+                            <img
+                                src="{{asset($item->profiles->foto)}}"
+                                alt="profile picture"
+                            />
+                        </figure>
+                    </a>
+                </div>
+                <!-- profile picture end -->
+                
+                <div class="unorder-list-info">
+                <h3 class="list-title">
+                    <a href="/profile/{{$item->id}}">{{$item->name}}</a>
+                </h3>
+                <p class="list-subtitle"><a href="#">{{$item->profiles->work}}</a></p>
+                </div>
+            
+                <form action="/profile/{{$item->id}}" method="POST" class="like-button">
+                    @csrf
+                    @if (Auth::user()->follows()->where('following_user_id', $item->id)->first())
+                      <input type="hidden" name="user_id" value="{{$item->id}}">
+                      <button class="like-button active" type="submit">
+                        <span class="badge badge-pill badge-danger">unfollow</span>
+                      </button>
+                    @else
+                      <input type="hidden" name="user_id" value="{{$item->id}}">
+                      <button class="like-button active" type="submit">
+                        <span class="badge badge-pill badge-danger">follow</span>
+                      </button>
+                    @endif
+                    
+                  </form>
+            </li>
+                @endforeach
+                <li><li class="unorder-list">{{ $following->links() }}</li></li>
+            </ul>
+        </div>
+        </div>
+    
+            
+    
+            
+            
+          
         </div>
       </div>
+    </div>
+
+      
     </main>
 
     <!-- Scroll to top start -->
@@ -167,3 +248,7 @@
     <script src="{{asset('assets/js/main.js')}}"></script>
   </body>
 </html>
+
+
+
+{{--  --}}

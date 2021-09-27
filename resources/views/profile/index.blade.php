@@ -34,8 +34,8 @@
               <nav>
                   <ul class="main-menu">
                       <li><a href="#post">{{count(Auth::user()->posts)}} Posts</a></li>
-                      <li><a href="/followers">{{count(Auth::user()->followed)}} followers</a></li>
-                      <li><a  href="/following">{{count(Auth::user()->follows)}} following</a></li>
+                      <li><a href="{{route('profile.followers')}}">{{count(Auth::user()->followed)}} followers</a></li>
+                      <li><a  href="{{route('profile.following')}}">{{count(Auth::user()->follows)}} following</a></li>
                       
                       <!-- <li class="d-inline-block d-md-none"><a href="profile.html">edit profile</a></li> -->
                   </ul>
@@ -113,7 +113,7 @@
       <h6 class="author">
           <a href="#">{{$item->user->name}}</a>
       </h6>
-      <span class="post-time">20 min ago</span>
+      <span class="post-time">{{$item->created_at->diffForHumans()}}</span>
       </div>
       
       <div class="post-settings-bar">

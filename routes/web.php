@@ -39,6 +39,8 @@ Route::post('/profile', 'ProfileController@store');
 Route::get('/profile/{profile}/edit', 'ProfileController@edit');
 Route::put('/profile/{profile}', 'ProfileController@update');
 Route::delete('/profile/{profile}', 'ProfileController@destroy');
+Route::get('/users/cari', 'PostController@users');
+
 
 Route::post('/comment', 'CommentController@store');
 Route::put('/foto/{profile}', 'ProfileController@gantiDP');
@@ -48,3 +50,7 @@ Route::post('/suka', 'CommentController@suka');
 Route::delete('/unsuka', 'CommentController@unsuka');
 
 Route::post('/profile/{user}', 'FollowingController@store')->name('following.store');
+Route::get('/following', 'FollowingController@following')->name('profile.following');
+Route::get('/followers', 'FollowingController@followers')->name('profile.followers');
+Route::get('/following/{user}', 'FollowingController@followingid')->name('profile.followingid');
+Route::get('/followers/{user}', 'FollowingController@followersid')->name('profile.followersid');

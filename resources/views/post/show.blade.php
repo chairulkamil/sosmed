@@ -111,8 +111,7 @@
                           <div class="profile-body">
                               <ul>
                                   <li><a href="/profile"><i class="flaticon-user"></i>Profile</a></li>
-                                  <li><a href="#"><i class="flaticon-message"></i>Inbox</a></li>
-                                  <li><a href="#"><i class="flaticon-document"></i>Activity</a></li>
+                                  
                               </ul>
                               <ul>
                                   {{-- <li><a href="#"><i class="flaticon-settings"></i>Setting</a></li> --}}
@@ -177,7 +176,7 @@
                     <h6 class="author">
                         <a href="/profile/{{ $data->user->id }}">{{ $data->user->name }}</a>
                     </h6>
-                    <span class="post-time">20 min ago</span>
+                    <span class="post-time">{{$data->created_at->diffForHumans()}}</span>
                     </div>
                 </div>
                 
@@ -258,7 +257,7 @@
                                     <a name="komentar{{$comments->id}}" class="text-dark" href="/profile/{{ $comments->users[0]->id }}"><b>{{ $comments->users[0]->name }}</b></a>
                                     
                                 </div>
-                                
+                                <span class="post-time">{{$comments->created_at->diffForHumans()}}</span> 
                             </div>
                         </div> 
                         <div class="post-description mt-3 "> 

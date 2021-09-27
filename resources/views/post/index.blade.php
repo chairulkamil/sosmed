@@ -35,7 +35,7 @@
                   @endif
                   
                 </h6>
-                <span class="post-time">20 min ago</span>
+                <span class="post-time">{{$item->created_at->diffForHumans()}}</span>
               </div>
             </div>
 

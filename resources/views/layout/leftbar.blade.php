@@ -85,7 +85,13 @@
 
           
           @endforeach
-          <li class="unorder-list">{{ $users->links() }}</li>
+          <li class="unorder-list">
+            <form action="/users/cari" class="top-search-box" method="GET">
+              @csrf
+              <input type="hidden" name="name" value="">
+              <button class="edit-btn" type="submit" >Show More >></button>
+            </form>
+          </li>
           
           
         </ul>

@@ -15,8 +15,61 @@ class FollowingController extends Controller
      */
     public function index()
     {
-        //
+        
     }
+
+    public function following()
+    {
+        $id = Auth::user()->id;
+        $user = User::find($id);
+        $users = User::all();
+        
+        return view('profile.following', [
+            'total' => $user->follows,
+            'following' => $user->follows()->paginate(5),
+            'users' => $users,
+        ]);
+    }
+
+    public function followingid($id)
+    {
+        
+        $user = User::find($id);
+        $users = User::all();
+        
+        return view('profile.following', [
+            'total' => $user->follows,
+            'following' => $user->follows()->paginate(5),
+            'users' => $users,
+        ]);
+    }
+
+    public function followers()
+    {
+        $id = Auth::user()->id;
+        $user = User::find($id);
+        $users = User::all();
+        
+        return view('profile.followers', [
+            'total' => $user->followed,
+            'followers' => $user->followed()->paginate(5),
+            'users' => $users,
+        ]);
+    }
+
+    public function followersid($id)
+    {
+        
+        $user = User::find($id);
+        $users = User::all();
+        
+        return view('profile.followers', [
+            'total' => $user->followed,
+            'followers' => $user->followed()->paginate(5),
+            'users' => $users,
+        ]);
+    }
+
 
     /**
      * Show the form for creating a new resource.

@@ -21,8 +21,13 @@ class PostController extends Controller
      */
     public function index()
     {
-        
-        $data = Post::with('user', 'likes', 'comments')->orderBy('id', 'desc')->get();
+        $id = Auth::user()->id;
+        $user = User::find($id);
+        $following = $user->follows()->pluck('id');
+        $data = Post::with('user', 'likes', 'comments')
+                    ->whereIn('user_id', $following)
+                    ->orWhere('user_id', $id)
+                    ->orderBy('id', 'desc')->get();
         $likes = Like::select('post_id')->where('user_id', Auth::user()->id)->get();
         $likeArr= Arr::flatten($likes->toArray()); //convert multidimensional array to single array for easy access
 
@@ -48,6 +53,23 @@ class PostController extends Controller
         $like->save();
         return redirect(url()->previous().'#postingan'.$request->post_id);
     }
+
+    public function users(Request $request)
+    {
+        if ($request->name != NULL) {
+            $user = User::where('name','like', '%'.$request->name.'%')->get();
+            $users = User::paginate(10);
+            return view('profile.users', compact('users', 'user'));
+        }else{
+            $user = NULL;
+            $users = User::paginate(10);
+            return view('profile.users', compact('users', 'user'));
+        }
+        
+        return view('profile.users', compact('users', 'user'));
+    }
+
+    
 
     public function unlike(Request $request)
     {
