@@ -28,3 +28,8 @@ Sosmed - AsikGan
 <hr>
 <h1>ERD</h1>
 <hr>
+<img src="public/private/storage/image/ERD sosmed.png">
+<hr>
+<p>Link Demo Aplikasi: https://youtu.be/DWqg8_d9Ydo </p>
+<p>Link Demo ERD: https://youtu.be/Fk4Hs58mTDo </p>
+<p>Link Deploy: https://codingin.xyz/</p>
