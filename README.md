@@ -15,7 +15,7 @@ tugas:
 2. Templating
 3. menyempurnakan halaman post, membuat fitur likes postingan, membuat fitur likes komentar, membuat fitur follows, followed, following, followers, menambahkan library package sweet alert, ckeditor, dan dompdf, menyempurnakan halaman profile, menambahkan fitur edit profile, ganti foto profile, ganti cover foto.
 
-- muhammad chairul kamil
+- muhammad chairul kamil (email: chairulkamil16@gmail.com)
 tugas:
 1. templating postingan
 2. membuat fitur komentar
